@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COMMUNITY</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .inner {
+            background: aliceblue;
+            border-right: 1px solid blue;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br>
+        <div class="form-group row">
+            <h2>Community Page</h2>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-1" id="post">
+                <a href="/post_form/"><button type="button" class="btn btn-primary">Post</button></a><br>
+            </div>
+            <div class="col-sm-4">
+                <a href="/home/{{ user.id }}"><button type="button" class="btn btn-primary" id="home">Back to home page</button></a>
+            </div>
+        </div>
+        <h3>Recent Posts</h3>
+        {% for post in post %}
+            <div class="form-group row inner">
+                <section class="post">
+                    <h5><a href="/post_details/{{ post.id }}">{{ post.post_title }}--{{ post.category }}</a></h5>
+                    <span class="post-meta">
+                        {{ post.time | date:"d F Y" }}
+                    </span>
+                </section>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

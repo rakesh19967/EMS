@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>POST DETAILS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .inner {
+            background: aliceblue;
+            padding: 10px 15px;
+        }
+        .reply {
+            background: azure;
+            margin-left: 20px;
+            padding: 10px 15px;
+        }
+        .replyreply {
+            background: ghostwhite;
+            margin-left: 70px;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    {%  for message in messages %}
+            <div class="alert alert-info" >
+                <a class="close" href="#" data-dismiss="alert"></a>
+                {{ message }}
+            </div>
+        {% endfor %}
+        <br>
+        <div class="form-group row">
+            <h2>{{ post.post_title }} </h2>
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-4" id="community">
+                <a href="/community"><button type="button" class="btn btn-primary" id="comm">Back to Posts</button></a>
+            </div>
+        </div>
+        <div class="form-group row">
+            <strong>Category : </strong>{{ post.category }}
+        </div>
+        <div class="form-group inner">
+            {{ post.description | safe }}
+            <a href="/likes/{{ post.id }}"><i onclick="like(this)" class="col-sm-1 fa fa-thumbs-up">{{ number_of_likes }}</i></a>
+            <a href="/dislikes/{{ post.id }}"><i onclick="dislike(this)" class="col-sm-1 fa fa-thumbs-down">{{ number_of_dislikes }}</i></a>
+            <a href="/post_reply_form/{{ post.id }}/{{ user.id }}"><i class="col-sm-1 fa fa-commenting">Reply</i></a>
+        </div>
+        <h5>Replies</h5>
+        {% for reply in replies %}
+            <div class="form-group reply">
+                {{ reply.description | safe }}
+                --
+                <br>
+                <a href="/replylikes/{{ post.id }}/{{ reply.id }}"><i onclick="like(this)" class="col-sm-1 fa fa-thumbs-up">{{ number_of_likes }}</i></a>
+                <a href="/replydislikes/{{ post.id }}/{{ reply.id }}"><i onclick="dislike(this)" class="col-sm-1 fa fa-thumbs-down">{{ number_of_dislikes }}</i></a>
+                <a href="/reply_reply_form/{{ post.id }}/{{ user.id }}/{{ reply.id }}"><i class="col-sm-1 fa fa-commenting">Reply</i></a>
+                <br>
+            </div>
+            {% for replyreply in replyreplies %}
+                {% if replyreply.parent_id == reply.id %}
+                    <div class="form-group replyreply">
+                        {{ replyreply.description | safe }}
+                        --
+                        <br>
+                        <a href="/replylikes/{{ post.id }}/{{ replyreply.id }}"><i onclick="like(this)" class="col-sm-1 fa fa-thumbs-up">{{ number_of_likes }}</i></a>
+                        <a href="/replydislikes/{{ post.id }}/{{ replyreply.id }}"><i onclick="dislike(this)" class="col-sm-1 fa fa-thumbs-down">{{ number_of_dislikes }}</i></a>
+{#                        <a href="/reply_reply_form/{{ post.id }}/{{ user.id }}/{{ reply.id }}"><i class="col-sm-1 fa fa-commenting">Reply</i></a>#}
+                        <br>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+</body>
+</html>
+
+{#<script>#}
+{#    function like(x) {#}
+{#        ;#}
+{#    }#}
+{#</script>#}

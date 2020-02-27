@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.11/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.11/js/select2.min.js"></script>
+</head>
+<body>
+    <form method="POST" class="form-control" id="post_form" action="/post_form/{{ user.id }}">
+        {% csrf_token %}
+        <div class="container">
+            <br>
+            <div class="form-group row">
+                <h2>Post Your Ideas</h2>
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-4" id="community">
+                    <a href="/community"><button type="button" class="btn btn-primary" id="comm">Back to Posts</button></a>
+                </div>
+            </div>
+             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Post Title: </label>
+               <input type="text" id="title">
+{#                 {{ form.title }}#}
+            </div>
+            <br>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="category">Category: </label>
+                <select name="category" id="category">
+                    <option value="" hidden>Select an option</option>
+                    <option value="Aptitude">Aptitude</option>
+                    <option value="Softskills">Softskills</option>
+                    <option value="Reasoning">Reasoning</option>
+                    {%  for categories in category %}
+                        <option value="{{ categories.category }}">{{ categories.category }}</option>
+                    {% endfor %}
+                </select>
+{#                {{ form.category }}#}
+            </div>
+            <br>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="description">Post Description:</label>
+                <textarea name="description" id1="summernote" id="description" class="col-sm-3 col-form-label"></textarea>
+                <script>
+                    $(document).ready(function() {
+                        $('#summernote').summernote();
+                    });
+                </script>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-1" id="submit">
+                    <button type="submit" class="btn btn-primary" id="post">Post</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

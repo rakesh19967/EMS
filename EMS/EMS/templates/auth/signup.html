@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<title>Table-free form layout</title>
+<meta http-equiv="content-type"
+    content="text/html; charset=utf-8" />
+<style>
+    input.txt {
+        color: #00008B;
+        background-color: #E3F2F7;
+        border: 1px inset #00008B;
+        width: 200px;
+    }
+    input.btn {
+        color: #00008B;
+        background-color: #ADD8E6;
+        border: 1px outset #00008B;
+    }
+    form div {
+        clear: left;
+        margin: 0;
+        padding: 0;
+        padding-top: 0.6em;
+    }
+    form div label {
+        float: left;
+        width: 40%;
+        font: bold 0.9em Arial, Helvetica, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>User Registration Form</h1>
+<form method="post" >
+    {% csrf_token %}
+    <div>
+        <label for="username">Username:</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+{#        <input type="text" name="username" id="username" class="txt" />#}
+    </div>
+    <div>
+        <label for="first_name">first_name:</label>
+        {{ form.first_name }}
+        {{ form.first_name.errors }}
+{#        <input type="text" name="first_name" id="first_name" class="txt" />#}
+    </div>
+    <div>
+        <label for="last_name">last_name:</label>
+        {{ form.last_name }}
+        {{ form.last_name.errors }}
+{#        <input type="text" name="last_name" id="last_name" class="txt" />#}
+    </div>
+    <div>
+        <label for="email">Email Address:</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+{#        <input type="text" name="email" id="email" class="txt" />#}
+    </div>
+    <div>
+        <label for="phonenumber">phone number:</label>
+        {{ form.phonenumber }}
+        {{ form.phonenumber.errors }}
+{#    <input type="text" name="phonenumber" id="phonenumber" class="txt" />#}
+    </div>
+    <div>
+        <label for="gender">gender:</label>
+        <input type="radio" name="gender" id="gender" value="female" /><span>Female</span>
+        <input type="radio" name="gender" value="male" /><span>Male</span>
+    </div>
+    <div>
+        <label for="city">select a city</label>
+        <select name="city" id="city">
+            <option selected="#" value="Default" disabled>select a option</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Andhrapradesh">Andhrapradesh</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Bangalore">Bangalore</option>
+        </select>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        {{ form.password }}
+        {{ from.password.errors }}
+{#        <input type="password" name="password" id="password" />#}
+    </div>
+    <div>
+        <label for="password1">Confirm Password:</label>
+        {{ form.password1 }}
+        {{ form.password1.errors }}
+{#        <input type="password" name="password1" id="password1" />#}
+    </div>
+    <div>
+        <input type="checkbox" name="terms" value="conditions">I Accept the terms and conditions
+        {{ form.checkbox }}
+        {{ form.checkbox.errors }}
+
+    </div>
+    <div>
+        <input type="submit" name="btnSubmit" id="btnSubmit" value="Sign Up!" class="btn" />
+        <p>already have an account click here to login</p>
+        <a class="btn btn-warning" name="btnsubmit" href="{% url 'user_login' %}">Login</a>
+    </div>
+</form>
+</body>
+</html>
